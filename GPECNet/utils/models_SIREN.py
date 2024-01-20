@@ -179,21 +179,21 @@ class PECNet(nn.Module):
         # fdim = 16
         # enc_past: 16--> 512 --> 256 --> 16
         # Intuition: For extrapolating the next 12 points.
-        self.encoder_past = MLP(input_dim = past_length*2, output_dim = fdim, 
+        self.encoder_past = Ryan_MLP(input_dim = past_length*2, output_dim = fdim, 
                                         hidden_size=enc_past_size, outermost_linear = True)
 
-        self.encoder_dest = MLP(input_dim = 2, output_dim = fdim, hidden_size=enc_dest_size, outermost_linear = True)
+        self.encoder_dest = Ryan_MLP(input_dim = 2, output_dim = fdim, hidden_size=enc_dest_size, outermost_linear = True)
 
-        self.encoder_latent = MLP(input_dim = 2*fdim, output_dim = 2*zdim, hidden_size=enc_latent_size, outermost_linear = True)
+        self.encoder_latent = Ryan_MLP(input_dim = 2*fdim, output_dim = 2*zdim, hidden_size=enc_latent_size, outermost_linear = True)
 
-        self.decoder = MLP(input_dim = fdim + zdim, output_dim = 2, hidden_size=dec_size, outermost_linear = True)
+        self.decoder = Ryan_MLP(input_dim = fdim + zdim, output_dim = 2, hidden_size=dec_size, outermost_linear = True)
 
         # Part of Social Pooling
-        self.non_local_theta = MLP(input_dim = 2*fdim + 2, output_dim = non_local_dim, hidden_size=non_local_theta_size, outermost_linear = True)
-        self.non_local_phi = MLP(input_dim = 2*fdim + 2, output_dim = non_local_dim, hidden_size=non_local_phi_size, outermost_linear = True)
-        self.non_local_g = MLP(input_dim = 2*fdim + 2, output_dim = 2*fdim + 2, hidden_size=non_local_g_size, outermost_linear = True)
+        self.non_local_theta = Ryan_MLP(input_dim = 2*fdim + 2, output_dim = non_local_dim, hidden_size=non_local_theta_size, outermost_linear = True)
+        self.non_local_phi = Ryan_MLP(input_dim = 2*fdim + 2, output_dim = non_local_dim, hidden_size=non_local_phi_size, outermost_linear = True)
+        self.non_local_g = Ryan_MLP(input_dim = 2*fdim + 2, output_dim = 2*fdim + 2, hidden_size=non_local_g_size, outermost_linear = True)
 
-        self.predictor = MLP(input_dim = 2*fdim + 2, output_dim = 2*(future_length-1), hidden_size=predictor_size, outermost_linear = True)
+        self.predictor = Ryan_MLP(input_dim = 2*fdim + 2, output_dim = 2*(future_length-1), hidden_size=predictor_size, outermost_linear = True)
 
         # print(self)
 
